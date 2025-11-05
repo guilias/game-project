@@ -1,6 +1,7 @@
 let canvas = document.getElementById('game_canvas');
 let ctx = canvas.getContext('2d');
 
+
 function detectaColisao(areaJogador, areaObjeto){
     if (areaJogador.x < areaObjeto.x + areaObjeto.largura &&
         areaJogador.x + areaJogador.largura > areaObjeto.x &&
@@ -136,6 +137,17 @@ let cura = desenhaRetangulos("green", canvas.width / 2, 300, 30, 30);
 let jogoPausado = false;
 let teclaDePausarPressionada = false; //variável criada para evitar bugs ao pausar o jogo
 
+//fundo/background
+let fundo = new Image(1200, 600)
+fundo.src = "img/background.png"
+
+let imgCura = new Image(48, 48)
+imgCura.src = "img/pocao.png"
+let imgDocumento = new Image(48, 48)
+imgDocumento.src = "img/documento.png"
+
+
+
 //adiciona o "sinal" e cria variável para rastrear teclas pressionadas
 let teclasPressionadas = {};
 document.addEventListener('keydown', function(evento){
@@ -209,6 +221,11 @@ function animacao(){
         velocidadeVertical += 0.15 // a velocidade de queda aumenta a cada frame
         jogador.y += velocidadeVertical * gravidade // incrementa os valores
 
+
+        //desenha o fundo
+        ctx.drawImage(fundo, 0, 0)
+
+
         //desenha o jogador
         jogador.desenha(ctx);
 
@@ -222,6 +239,8 @@ function animacao(){
 
         
         ctx.drawImage(visualJogador, jogador.x, jogador.y)
+        ctx.drawImage(imgCura, 0, 0)
+        ctx.drawImage(imgDocumento, 100, 100)
 
         //desenha o inimigo
         fantasma.desenha(ctx);
@@ -230,6 +249,8 @@ function animacao(){
         distanciaInimigoTotal = Math.sqrt(distanciaInimigoX * distanciaInimigoX + distanciaInimigoY * distanciaInimigoY)
         fantasma.x -= (distanciaInimigoX/distanciaInimigoTotal) * velocidadeInimigo;
         fantasma.y -= (distanciaInimigoY/distanciaInimigoTotal) * velocidadeInimigo;
+
+        
 
         //testando um 'for loop'
         // for (let i = fantasma.y; i != jogador.y; i++){
@@ -248,6 +269,7 @@ function animacao(){
         
         //sistema de cura
         coletarCura(jogador, cura)
+        
         if (curaColetada == false){
             cura.desenha(ctx)
         }
@@ -264,6 +286,7 @@ function animacao(){
         ctx.fillStyle = "black";
         ctx.textAlign = 'left';
         ctx.fillText('Pontos de Vida: ' + ptVida, 50, 100);
+        
     }
 
     //chama animação (?)
