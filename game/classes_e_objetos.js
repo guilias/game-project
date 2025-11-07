@@ -33,15 +33,15 @@ let fantasma = {
     desenha(){
         ctx.beginPath()
         ctx.fillStyle = this.cor;
-        ctx.fillRect(this.x, this,y, this.largura, this.altura)
+        ctx.fillRect(this.x, this.y, this.largura, this.altura)
         ctx.closePath()
     },
     seguirJogador(){
-        distanciaInimigoX =  fantasma.x - jogador.x;
-        distanciaInimigoY = fantasma.y - jogador.y;
+        distanciaInimigoX =  this.x - jogador.x;
+        distanciaInimigoY = this.y - jogador.y;
         distanciaInimigoTotal = Math.sqrt(distanciaInimigoX * distanciaInimigoX + distanciaInimigoY * distanciaInimigoY)
-        fantasma.x -= (distanciaInimigoX/distanciaInimigoTotal) * fantasma.velocidade;
-        fantasma.y -= (distanciaInimigoY/distanciaInimigoTotal) * fantasma.velocidade;
+        fantasma.x -= (distanciaInimigoX/distanciaInimigoTotal) * this.velocidade;
+        fantasma.y -= (distanciaInimigoY/distanciaInimigoTotal) * this.velocidade;
     }
 }
 
