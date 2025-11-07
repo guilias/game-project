@@ -94,6 +94,20 @@ function coletarCura(areaJogador, objetoCura){
     }
 }
 
+// let player = {
+//     x: 700,
+//     y: 0,
+//     largura: 48,
+//     altura: 96,
+//     pv: 100,
+//     pvMax: 100,
+//     colisao: false,
+//     visual: "",
+//     noChao: false,
+//     velocidade: 9,
+//     velVertical: 0,
+//     forcaPulo: -4,
+// }
 
 //declara jogador e variáveis relacionadas
 let jogador = desenhaRetangulos("rgba(0, 0, 0, 0)", 700, 0, 48, 96);
