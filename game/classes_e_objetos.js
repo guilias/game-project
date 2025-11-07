@@ -19,9 +19,36 @@ let player = {
     velocidade: 9,
     velVertical: 0,
     forcaPulo: -4,
+    colisao: false,
 }
 
-function gerarVisualplayer(linkVisual){
+let fantasma = {
+    cor: "black",
+    x: 0,
+    y: 0,
+    largura: 48,
+    altura: 48,
+    velocidade: 7,
+    //NENHUMA DAS FUNÇÕES ESTÁ FUNCIONANDO
+    desenha(){
+        ctx.beginPath()
+        ctx.fillStyle = this.cor;
+        ctx.fillRect(this.x, this,y, this.largura, this.altura)
+        ctx.closePath()
+    },
+    seguirJogador(){
+        distanciaInimigoX =  fantasma.x - jogador.x;
+        distanciaInimigoY = fantasma.y - jogador.y;
+        distanciaInimigoTotal = Math.sqrt(distanciaInimigoX * distanciaInimigoX + distanciaInimigoY * distanciaInimigoY)
+        fantasma.x -= (distanciaInimigoX/distanciaInimigoTotal) * fantasma.velocidade;
+        fantasma.y -= (distanciaInimigoY/distanciaInimigoTotal) * fantasma.velocidade;
+    }
+}
+
+const gravidade = 2;
+
+
+function carregarVisualPlayer(linkVisual){
     player.visual = new Image(player.largura, player.altura);
     player.visual.src = linkVisual;
     ctx.drawImage(player.visual)
@@ -29,13 +56,14 @@ function gerarVisualplayer(linkVisual){
 
 
 class Objeto {
-    constructor(cor, corBorda, x, y, largura, altura){
+    constructor(cor, corBorda, x, y, largura, altura, dano){
         this.cor = cor;
         this.corBorda = corBorda;
         this.x = x;
         this.y = y;
         this.largura = largura;
         this.altura = altura;
+        this.dano = dano;
     };
     desenha(){
         ctx.beginPath()
@@ -83,18 +111,20 @@ class Objeto {
                     player.y = this.y - player.altura;
                     player.noChao = true;
                     player.velVertical = 0;
-                    console.log("Está no chão.")
-                    ctx.font = "30px Arial";
-                    ctx.fillStyle = "black";
-                    ctx.fillText("player está no chão.", canvas.width / 2, canvas.height / 2);
+                    msgJogadorNoChao.desenha()
                 }
             }
             console.log("player está colidindo com objeto.")
-            colisao = true;
+            player.colisao = true;
+                if(this.dano == true && player.pv > 0){
+                    console.log("Dano ligado.")
+                    player.pv -= 1;
+                    console.log(player.pv)
+                }
             return true;
         } else {
             console.log("Não há colisão.")
-            colisao = false;
+            player.colisao = false;
             return false;
         }
     }
@@ -111,16 +141,18 @@ class Item {
         this.coletado = coletado;
     }
     desenha(){
-        ctx.beginPath()
-        ctx.fillStyle = this.cor;
-        ctx.strokeStyle = this.corBorda;
-        ctx.fillRect(this.x, this.y, this.largura, this.altura)
-        ctx.closePath();
+        if(this.coletado == false){
+            ctx.beginPath()
+            ctx.fillStyle = this.cor;
+            ctx.strokeStyle = this.corBorda;
+            ctx.fillRect(this.x, this.y, this.largura, this.altura)
+            ctx.closePath();}
     }
     gerarVisual(linkVisual){
         this.visual = new Image(this.largura, this.altura)
         this.visual.src = linkVisual;
-        ctx.drawImage(this.visual)
+        if(this.coletado == false){
+            ctx.drawImage(this.visual)}
     }
     curar(){
         if (this.coletado == false &&
@@ -129,14 +161,21 @@ class Item {
         player.y < this.y + this.altura &&
         player.y + player.altura > this.y)
         {
-        player.pv += 10;
-        this.coletado = true;
+            player.pv += 10;
+            this.coletado = true;
         }
+    }
+    dano(){
+    if (player.x < this.x + this.largura &&
+        player.x + player.largura > this.x &&
+        player.y < this.y + this.altura &&
+        player.y + player.altura > this.y)
+            {player.pv -= 1;}
     }
 }
 
 class Texto {
-    constructor(fonte, tamanho, cor, x, y, mensagem){
+    constructor(tamanho, fonte, cor, x, y, mensagem){
         this.fonte = fonte;
         this.tamanho = tamanho;
         this.cor = cor;
@@ -144,30 +183,35 @@ class Texto {
         this.y = y;
         this.mensagem = mensagem;
     }
-    escreve(){
+    desenha(){
         ctx.beginPath()
-        ctx.font = `${this.tamanho}px ${this.fonte}`;
+        ctx.font = `${this.tamanho} ${this.fonte}`;
         ctx.fillStyle = this.cor;
         ctx.textAlign = 'center';
         ctx.fillText(this.mensagem, this.x, this.y);
     }
 };
 
-// DECLARAÇÃO DE OBJETOS DE CLASSES:
+// --- DECLARAÇÃO DE OBJETOS DE CLASSES: ---
 
 // OBJETO:
-let playerPlaceholder = new Objeto("rgba(255, 0, 0, 1)", null, 700, 0, 48, 96)
+let playerPlaceholder = new Objeto("rgba(255, 0, 0, 1)", null, 700, 0, 48, 96, false)
 
-let teto = new Objeto("gray", null, 0, 0, canvas.width, 10);
-let chao = new Objeto("gray", null, 0, canvas.height - 10, canvas.width, 10);
-let paredeEsquerda = new Objeto("gray", null, 0, 0, 10, canvas.height)
-let paredeDireita = new Objeto("gray", null, canvas.width - 10, 0, 10, canvas.height)
-let plataforma = new Objeto("gray", null, canvas.width / 2, 500, 400, 10);
+let teto = new Objeto("gray", null, 0, 0, canvas.width, 10, false);
+let chao = new Objeto("gray", null, 0, canvas.height - 10, canvas.width, 10, false);
+let paredeEsquerda = new Objeto("gray", null, 0, 0, 10, canvas.height, false)
+let paredeDireita = new Objeto("gray", null, canvas.width - 10, 0, 10, canvas.height, false)
+let plataforma = new Objeto("gray", null, canvas.width / 2, 500, 400, 10, false);
+
+let dano01 = new Objeto("purple", null, 1000, canvas.height - 20, 100, 10, true);
 
 //ITEM:
-
+let cura01 = new Item("green", 400, 400, 48, 48, null, false)
+let cura02 = new Item("green", 50, 400, 48, 48, null, false)
 
 //TEXTO:
+let msgJogadorNoChao = new Texto("50px", "Arial", "black", canvas.width / 2, canvas.height / 2, "O jogador está no chão.")
+
 
 
 //Mapeamento de teclas: adiciona o "sinal" e cria variável para rastrear teclas pressionadas
@@ -183,7 +227,9 @@ document.addEventListener('keyup', function(evento){
 function loopAnimacao(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    //Movimentação
+    //--- MOVIMENTAÇÃO: ---
+
+    //baixo, esquerda e direita:
     if(teclasPressionadas['ArrowDown'] || teclasPressionadas['s'])
         {player.y += player.velocidade;}
     if(teclasPressionadas['ArrowLeft'] || teclasPressionadas['a'])
@@ -192,21 +238,54 @@ function loopAnimacao(){
         {player.x += player.velocidade;}
 
     //pulo
-    if((teclasPressionadas['ArrowUp'] || teclasPressionadas['w']) && playerNoChao){
+    if((teclasPressionadas['ArrowUp'] || teclasPressionadas['w']) && player.noChao == true){
         player.velVertical = player.forcaPulo; //basicamente, é o impulso do pulo.
-        player.noChaooChao = false;;
+        player.noChao = false;
     }
     playerPlaceholder.x = player.x
     playerPlaceholder.y = player.y
 
+    //"física"
+    player.velVertical += 0.15 // a velocidade de queda aumenta a cada frame
+    player.y += player.velVertical * gravidade // incrementa os valores
+
+
+    //--- INTERFACE: ---
+
+    //Pontos de vida:
+    
+    let msgPv = new Texto("20px", "Arial", "black", 100, 50, "Pontos de vida: " + player.pv)
+    msgPv.desenha()
+    if (player.pv > player.pvMax){
+            player.pv = player.pvMax;
+        }
+        if (player.pv < 1){
+            player.pv = 0;
+        }
+   
 
     //Classe "Objeto":
     playerPlaceholder.desenha()
     teto.desenha()
     chao.desenha()
+    chao.colisao()
     paredeEsquerda.desenha()
     paredeDireita.desenha()
 
+    //Objetos que dão dano:
+    dano01.desenha()
+    dano01.colisao()
+
+    //Classe "Item":
+    cura01.desenha()
+    cura01.curar()
+
+    cura02.desenha()
+    cura02.curar()
+
+    //FANTASMA
+    //nao funciona
+    fantasma.desenha()
 
     requestAnimationFrame(loopAnimacao);
 }
