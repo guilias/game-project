@@ -22,26 +22,28 @@ let player = {
     colisao: false,
 }
 
-let fantasma = {
-    cor: "black",
-    x: 0,
-    y: 0,
-    largura: 48,
-    altura: 48,
-    velocidade: 7,
+class Inimigo{
+    constructor(cor, x, y, largura, altura, velocidade){
+        this.cor = cor;
+        this.x = x;
+        this.y = y;
+        this.largura = largura;
+        this.altura = altura;
+        this.velocidade = velocidade;
+    }
     //NENHUMA DAS FUNÇÕES ESTÁ FUNCIONANDO
     desenha(){
         ctx.beginPath()
         ctx.fillStyle = this.cor;
         ctx.fillRect(this.x, this.y, this.largura, this.altura)
         ctx.closePath()
-    },
+    }
     seguirJogador(){
-        distanciaInimigoX =  this.x - jogador.x;
-        distanciaInimigoY = this.y - jogador.y;
-        distanciaInimigoTotal = Math.sqrt(distanciaInimigoX * distanciaInimigoX + distanciaInimigoY * distanciaInimigoY)
-        fantasma.x -= (distanciaInimigoX/distanciaInimigoTotal) * this.velocidade;
-        fantasma.y -= (distanciaInimigoY/distanciaInimigoTotal) * this.velocidade;
+        let distanciaInimigoX =  this.x - player.x;
+        let distanciaInimigoY = this.y - player.y;
+        let distanciaInimigoTotal = Math.sqrt(distanciaInimigoX * distanciaInimigoX + distanciaInimigoY * distanciaInimigoY)
+        this.x -= (distanciaInimigoX/distanciaInimigoTotal) * this.velocidade;
+        this.y -= (distanciaInimigoY/distanciaInimigoTotal) * this.velocidade;
     }
 }
 
@@ -194,6 +196,10 @@ class Texto {
 
 // --- DECLARAÇÃO DE OBJETOS DE CLASSES: ---
 
+//INIMIGO:
+let fantasma = new Inimigo("black", 0, 0, 48, 48, 2)
+
+
 // OBJETO:
 let playerPlaceholder = new Objeto("rgba(255, 0, 0, 1)", null, 700, 0, 48, 96, false)
 
@@ -264,6 +270,8 @@ function loopAnimacao(){
         }
    
 
+    // -- DEMAIS FUNÇÕES... --
+
     //Classe "Objeto":
     playerPlaceholder.desenha()
     teto.desenha()
@@ -286,6 +294,7 @@ function loopAnimacao(){
     //FANTASMA
     //nao funciona
     fantasma.desenha()
+    fantasma.seguirJogador()
 
     requestAnimationFrame(loopAnimacao);
 }
