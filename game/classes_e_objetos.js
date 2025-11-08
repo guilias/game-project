@@ -53,7 +53,7 @@ class Inimigo{
         this.x -= (distanciaX/distanciaTotal) * this.velocidade;
         this.y -= (distanciaY/distanciaTotal) * this.velocidade;
 
-        let ruidoMovFantasmaX = ((Math.random() - 0.5) * 2) * 3 
+        let ruidoMovFantasmaX = ((Math.random() - 0.5) * 2) * 5 
         let ruidoMovFantasmaY = ((Math.random() - 0.5) * 2) * 10
         this.x += ruidoMovFantasmaX;
         this.y += ruidoMovFantasmaY;
@@ -64,6 +64,11 @@ class Inimigo{
         player.y < this.y + this.altura &&
         player.y + player.altura > this.y)
         {player.pv -= 1;}
+    }
+    carregarVisual(linkVisual){
+        this.visual = new Image(this.largura, this.altura);
+        this.visual.src = linkVisual;
+        ctx.drawImage(this.visual, this.x, this.y, this.largura, this.altura)
     }
 }
 
@@ -220,7 +225,7 @@ class Texto {
 // --- DECLARAÇÃO DE OBJETOS DE CLASSES: ---
 
 //INIMIGO:
-let fantasma = new Inimigo("black", 0, 0, 48, 48, 2)
+let fantasma = new Inimigo("black", 0, 0, 48, 96, 1.5)
 
 
 // OBJETO:
@@ -246,10 +251,12 @@ let msgJogadorNoChao = new Texto("50px", "Arial", "black", canvas.width / 2, can
 
 
 //INTERFACE
-let vermelho = new Objeto("red", null, 0, 0, canvas.width, canvas.height, false)
-let msgGameOver = new Texto("50px", "Arial", "black", canvas.width/2, canvas.height/2, "center", "Você morreu.")
-let msgReiniciarJogo = new Texto("25px", "Arial", "black", canvas.width/2, canvas.height - canvas.height/3, "center", "Pressione a tecla R para tentar novamente.")
+let vermelho = new Objeto("black", null, 0, 0, canvas.width, canvas.height, false)
+let msgGameOver = new Texto("50px", "Arial", "white", canvas.width/2, canvas.height/2, "center", "Você morreu.")
+let msgReiniciarJogo = new Texto("25px", "Arial", "white", canvas.width/2, canvas.height - canvas.height/3, "center", "Pressione a tecla R para tentar novamente.")
 
+let fundo = new Image(1200, 600)
+fundo.src = "img/backgroundv2.png"
 
 //Mapeamento de teclas: adiciona o "sinal" e cria variável para rastrear teclas pressionadas
 let teclasPressionadas = {};
@@ -263,10 +270,9 @@ document.addEventListener('keyup', function(evento){
 
 function loopAnimacao(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
+    ctx.drawImage(fundo, 0, 0)
+
     //--- MOVIMENTAÇÃO: ---
-
-
     //antes de mais nada, chegar se o jogo está vivo:
     if (player.vivo == true){
     //baixo, esquerda e direita:
@@ -327,7 +333,7 @@ function loopAnimacao(){
 
     //FANTASMA
     //nao funciona
-    fantasma.desenha()
+    fantasma.carregarVisual("img/fantasma.png")
     fantasma.seguirJogador()
     fantasma.dano();
 
@@ -339,7 +345,7 @@ function loopAnimacao(){
     // --- INTERFACE ---
 
     //Pontos de VIda:
-    let msgPv = new Texto("20px", "Arial", "black", 30, 50, "left", "Pontos de vida: " + player.pv)
+    let msgPv = new Texto("20px", "Arial", "white", 30, 50, "left", "Pontos de vida: " + player.pv)
 
     msgPv.desenha()
     if (player.pv > player.pvMax){
@@ -353,7 +359,7 @@ function loopAnimacao(){
         }
 
     //Pontuação
-    let msgPontuacao = new Texto("20px", "Arial", "black", 30, 100, "left", "Documentos coletados:  " + player.pontuacao)
+    let msgPontuacao = new Texto("20px", "Arial", "white", 30, 100, "left", "Documentos coletados:  " + player.pontuacao)
     msgPontuacao.desenha()
 
 
