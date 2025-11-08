@@ -2,7 +2,7 @@
 //utilizando classes e aprimorando algumas funções.
 //AINDA NÃO ESTÁ PRONTO
 
-let canvas = document.getElementById('canvas_00');
+let canvas = document.getElementById('canvas_01');
 let ctx = canvas.getContext('2d');
 
 
@@ -152,7 +152,7 @@ class Objeto {
             player.y < this.y + this.altura &&
             player.y + player.altura > this.y)
             {
-            window.location.href = "fase_01.html" //avançar para próxima fase
+            window.location.href = "game_page.html" //avançar para próxima fase
             }
     }
 }
@@ -237,12 +237,16 @@ let fantasma = new Inimigo("black", 0, 0, 48, 96, 1.5)
 
 
 // OBJETO:
-let chao = new Objeto("green", null, 0, canvas.height - 10, canvas.width, 10, false)
-let paredeInvisivel = new Objeto("rgb(0, 0, 0, 0)", null, 0, 0, 10, canvas.height, false)
-let paredeCasa = new Objeto("gray", null, canvas.width - 10, canvas.height - 450, 10, 440, false)
-let beirau = new Objeto("gray", null, canvas.width - 20, canvas.height - 140, 10, 10, false)
-let porta = new Objeto("brown", null, canvas.width - 11, canvas.height - 130, 11, 120, false)
-let avancarFase = new Objeto("rgb(0, 0, 0, 0)", null, canvas.width - 20, canvas.height - 130, 10, 120, false)
+let teto = new Objeto("gray", null, 0, 0, canvas.width, 10, false);
+let chao = new Objeto("gray", null, 0, canvas.height - 10, canvas.width, 10, false);
+let paredeEsquerda = new Objeto("gray", null, 0, 0, 10, 450, false)
+let paredeDireita = new Objeto("gray", null, canvas.width - 10, 150, 10, canvas.height, false)
+
+let chaoMadeira = new Objeto("rgb(106, 72, 36)", null, 0, canvas.height - 20, canvas.width - 10, 10, false);
+
+let paredeInvisivel = new Objeto("rgb(0, 0, 0, 0)", null, 0, 450, 10, 150, false)
+
+let avancarFase = new Objeto("rgb(0, 0, 0, 0)", null, canvas.width - 20, 0, 20, 150, false)
 
 //ITEM:
 //curas
@@ -252,12 +256,11 @@ let cura02 = new Item("green", 50, 400, 48, 48, null, false)
 let documento01 = new Item("gray", 500, 500, 48, 48, null, false)
 
 //TEXTO:
-let msgJogadorNoChao = new Texto("50px", "Arial", "black", canvas.width / 2, canvas.height / 2, "center", "O jogador está no chão.")
 
 
 //INTERFACE
 let fundo = new Image(1200, 600)
-fundo.src = "img/ceu.png"
+fundo.src = "img/backgroundv2.png"
 
 //Mapeamento de teclas: adiciona o "sinal" e cria variável para rastrear teclas pressionadas
 let teclasPressionadas = {};
@@ -302,18 +305,22 @@ function loopAnimacao(){
     player.carregarVisual("img/detetivehp.png")
 
     //Classe "Objeto":
+    teto.desenha()
+    teto.colisao()
+
     chao.desenha()
     chao.colisao()
 
+    paredeEsquerda.desenha()
+    paredeEsquerda.colisao()
+
+    paredeDireita.desenha()
+    paredeDireita.colisao()
+
+    chaoMadeira.desenha()
+    chaoMadeira.colisao()
+
     paredeInvisivel.colisao()
-
-    paredeCasa.desenha()
-    paredeCasa.colisao()
-
-    porta.desenha()
-    porta.passarFase()
-
-    beirau.desenha()
 
     avancarFase.desenha()
     avancarFase.passarFase()

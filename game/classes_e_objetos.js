@@ -166,13 +166,13 @@ class Item {
             ctx.closePath();}
     }
     carregarVisual(linkVisual){
-        this.visual = new Image(this.largura, this.altura)
-        this.visual.src = linkVisual;
-        if(this.coletado == false){
-            ctx.drawImage(this.visual, this.x, this.y, this.largura, this.altura)}
+    this.visual = new Image(this.largura, this.altura)
+    this.visual.src = linkVisual;
+    if(this.coletado == false){
+        ctx.drawImage(this.visual, this.x, this.y, this.largura, this.altura)}
     }
     curar(){
-        if (this.coletado == false &&
+    if (this.coletado == false &&
         player.x < this.x + this.largura &&
         player.x + player.largura > this.x &&
         player.y < this.y + this.altura &&
@@ -199,6 +199,15 @@ class Item {
             player.pontuacao += 1;
             this.coletado = true
             }
+    }
+    passarFase(){
+    if (player.x < this.x + this.largura &&
+        player.x + player.largura > this.x &&
+        player.y < this.y + this.altura &&
+        player.y + player.altura > this.y)
+        {
+        window.location.href = "game_page.html" //avançar para próxima fase
+        }
     }
 }
 
@@ -361,8 +370,6 @@ function loopAnimacao(){
     let msgPontuacao = new Texto("20px", "Arial", "white", 30, 100, "left", "Documentos coletados:  " + player.pontuacao)
     msgPontuacao.desenha()
 
-
-    if(teclasPressionadas['x']){window.location.href = "https://www.example.com/new-page.html";}
 
     //Game Over (precisa estar por último)
     if (player.pv == 0){
