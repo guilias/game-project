@@ -2,13 +2,13 @@
 //utilizando classes e aprimorando algumas funções.
 //AINDA NÃO ESTÁ PRONTO
 
-let canvas = document.getElementById('teste-canvas');
+let canvas = document.getElementById('introducao-canvas');
 let ctx = canvas.getContext('2d');
 
 
 let player = {
-    x: 700,
-    y: 0,
+    x: 50,
+    y: 400,
     largura: 48,
     altura: 96,
     pv: 100,
@@ -228,15 +228,7 @@ let fantasma = new Inimigo("black", 0, 0, 48, 96, 1.5)
 
 
 // OBJETO:
-let playerPlaceholder = new Objeto("rgba(255, 0, 0, 1)", null, 700, 0, 48, 96, false)
-
-let teto = new Objeto("gray", null, 0, 0, canvas.width, 10, false);
-let chao = new Objeto("gray", null, 0, canvas.height - 10, canvas.width, 10, false);
-let paredeEsquerda = new Objeto("gray", null, 0, 0, 10, canvas.height, false)
-let paredeDireita = new Objeto("gray", null, canvas.width - 10, 0, 10, canvas.height, false)
-let plataforma = new Objeto("gray", null, canvas.width / 2, 500, 400, 10, false);
-
-let dano01 = new Objeto("purple", null, 1000, canvas.height - 20, 100, 10, true);
+let chao = new Objeto("green", null, 0, 10, canvas.width, 10)
 
 //ITEM:
 //curas
@@ -250,12 +242,7 @@ let msgJogadorNoChao = new Texto("50px", "Arial", "black", canvas.width / 2, can
 
 
 //INTERFACE
-let vermelho = new Objeto("black", null, 0, 0, canvas.width, canvas.height, false)
-let msgGameOver = new Texto("50px", "Arial", "white", canvas.width/2, canvas.height/2, "center", "Você morreu.")
-let msgReiniciarJogo = new Texto("25px", "Arial", "white", canvas.width/2, canvas.height - canvas.height/3, "center", "Pressione a tecla R para tentar novamente.")
 
-let fundo = new Image(1200, 600)
-fundo.src = "img/backgroundv2.png"
 
 //Mapeamento de teclas: adiciona o "sinal" e cria variável para rastrear teclas pressionadas
 let teclasPressionadas = {};
@@ -302,39 +289,8 @@ function loopAnimacao(){
     player.carregarVisual("img/detetivehp.png")
 
     //Classe "Objeto":
-    teto.desenha()
-    teto.colisao()
-
     chao.desenha()
     chao.colisao()
-
-    paredeEsquerda.desenha()
-    paredeEsquerda.colisao()
-
-    paredeDireita.desenha()
-    paredeDireita.colisao()
-
-    //Objetos que dão dano:
-    dano01.desenha()
-    dano01.colisao()
-
-    //Classe "Item":
-    cura01.curar()
-    cura01.carregarVisual("img/pocao.png")
-
-    cura02.curar()
-    cura02.carregarVisual("img/pocao.png")
-
-    //Documentos:
-    documento01.pontuar()
-    documento01.carregarVisual("img/documento.png")
-
-
-    //FANTASMA
-    //nao funciona
-    fantasma.carregarVisual("img/fantasma.png")
-    fantasma.seguirJogador()
-    fantasma.dano();
 
     if (player.pv == 0){
         vermelho.desenha()
