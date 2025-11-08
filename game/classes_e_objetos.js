@@ -13,14 +13,19 @@ let player = {
     altura: 96,
     pv: 100,
     pvMax: 100,
-    colisao: false,
     visual: "",
     noChao: false,
     velocidade: 9,
     velVertical: 0,
     forcaPulo: -4,
     colisao: false,
+    carregarVisual(linkVisual){
+        this.visual = new Image(this.largura, this.altura);
+        this.visual.src = linkVisual;
+        ctx.drawImage(this.visual, this.x, this.y, this.largura, this.altura)
+    }
 }
+
 
 class Inimigo{
     constructor(cor, x, y, largura, altura, velocidade){
@@ -39,23 +44,16 @@ class Inimigo{
         ctx.closePath()
     }
     seguirJogador(){
-        let distanciaInimigoX =  this.x - player.x;
-        let distanciaInimigoY = this.y - player.y;
-        let distanciaInimigoTotal = Math.sqrt(distanciaInimigoX * distanciaInimigoX + distanciaInimigoY * distanciaInimigoY)
-        this.x -= (distanciaInimigoX/distanciaInimigoTotal) * this.velocidade;
-        this.y -= (distanciaInimigoY/distanciaInimigoTotal) * this.velocidade;
+        let distanciaX =  this.x - player.x;
+        let distanciaY = this.y - player.y;
+        let distanciaTotal = Math.sqrt(distanciaX * distanciaX + distanciaY * distanciaY)
+
+        this.x -= (distanciaX/distanciaTotal) * this.velocidade;
+        this.y -= (distanciaY/distanciaTotal) * this.velocidade;
     }
 }
 
 const gravidade = 2;
-
-
-function carregarVisualPlayer(linkVisual){
-    player.visual = new Image(player.largura, player.altura);
-    player.visual.src = linkVisual;
-    ctx.drawImage(player.visual)
-}
-
 
 class Objeto {
     constructor(cor, corBorda, x, y, largura, altura, dano){
@@ -146,15 +144,14 @@ class Item {
         if(this.coletado == false){
             ctx.beginPath()
             ctx.fillStyle = this.cor;
-            ctx.strokeStyle = this.corBorda;
             ctx.fillRect(this.x, this.y, this.largura, this.altura)
             ctx.closePath();}
     }
-    gerarVisual(linkVisual){
+    carregarVisual(linkVisual){
         this.visual = new Image(this.largura, this.altura)
         this.visual.src = linkVisual;
         if(this.coletado == false){
-            ctx.drawImage(this.visual)}
+            ctx.drawImage(this.visual, this.x, this.y, this.largura, this.altura)}
     }
     curar(){
         if (this.coletado == false &&
@@ -268,28 +265,37 @@ function loopAnimacao(){
         if (player.pv < 1){
             player.pv = 0;
         }
-   
+    
 
+    
     // -- DEMAIS FUNÇÕES... --
 
+    //Jogador/Player:
+    player.carregarVisual("img/detetivehp.png")
+
     //Classe "Objeto":
-    playerPlaceholder.desenha()
     teto.desenha()
+    teto.colisao()
+
     chao.desenha()
     chao.colisao()
+
     paredeEsquerda.desenha()
+    paredeEsquerda.colisao()
+
     paredeDireita.desenha()
+    paredeDireita.colisao()
 
     //Objetos que dão dano:
     dano01.desenha()
     dano01.colisao()
 
     //Classe "Item":
-    cura01.desenha()
     cura01.curar()
+    cura01.carregarVisual("img/pocao.png")
 
-    cura02.desenha()
     cura02.curar()
+    cura02.carregarVisual("img/pocao.png")
 
     //FANTASMA
     //nao funciona
