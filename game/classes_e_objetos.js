@@ -255,13 +255,13 @@ let cura02 = new Item("green", 50, 400, 48, 48, null, false)
 let documento01 = new Item("gray", 500, 500, 48, 48, null, false)
 
 //TEXTO:
-let msgJogadorNoChao = new Texto("50px", "Arial", "black", canvas.width / 2, canvas.height / 2, "center", "O jogador está no chão.")
+let msgJogadorNoChao = new Texto("50px", "Minecraftia", "black", canvas.width / 2, canvas.height / 2, "center", "O jogador está no chão.")
 
 
 //INTERFACE
 let vermelho = new Objeto("black", null, 0, 0, canvas.width, canvas.height, false)
-let msgGameOver = new Texto("50px", "Arial", "white", canvas.width/2, canvas.height/2, "center", "Você morreu.")
-let msgReiniciarJogo = new Texto("25px", "Arial", "white", canvas.width/2, canvas.height - canvas.height/3, "center", "Pressione a tecla R para tentar novamente.")
+let msgGameOver = new Texto("50px", "Minecraftia", "white", canvas.width/2, canvas.height/2, "center", "Você morreu.")
+let msgReiniciarJogo = new Texto("25px", "Minecraftia", "white", canvas.width/2, canvas.height - canvas.height/3, "center", "Pressione a tecla R para tentar novamente.")
 
 let fundo = new Image(1200, 600)
 fundo.src = "img/backgroundv2.png"
@@ -353,7 +353,7 @@ function loopAnimacao(){
     // --- INTERFACE ---
 
     //Pontos de VIda:
-    let msgPv = new Texto("20px", "Arial", "white", 30, 50, "left", "Pontos de vida: " + player.pv)
+    let msgPv = new Texto("20px", "Minecraftia", "white", 30, 50, "left", "Pontos de vida: " + player.pv)
 
     msgPv.desenha()
     if (player.pv > player.pvMax){
@@ -367,7 +367,7 @@ function loopAnimacao(){
         }
 
     //Pontuação
-    let msgPontuacao = new Texto("20px", "Arial", "white", 30, 100, "left", "Documentos coletados:  " + player.pontuacao)
+    let msgPontuacao = new Texto("20px", "Minecraftia", "white", 30, 100, "left", "Documentos coletados:  " + player.pontuacao)
     msgPontuacao.desenha()
 
 

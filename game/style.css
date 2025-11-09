@@ -4,6 +4,12 @@
 
 body{
     background-color: beige;
+    font-family: "Minecraftia";
+}
+
+@font-face{
+    font-family: "Minecraftia";
+    src: url("Minecraftia-Regular.ttf")
 }
 
 .container{
