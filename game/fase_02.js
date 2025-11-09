@@ -153,7 +153,7 @@ class Objeto {
             player.y + player.altura > this.y)
         {
             if (player.pontuacao == maxPontos){
-                window.location.href = "fase_02.html" //avançar para próxima fase
+                window.location.href = "fase_01.html" //avançar para próxima fase
             }
             else{
                 msgPegarPonto.desenha()
@@ -261,15 +261,16 @@ let avancarFase = new Objeto("rgb(0, 0, 0, 0)", null, canvas.width - 20, 0, 20, 
 
 
 //plataformas
-let plataforma01 = new Objeto("rgb(106, 90, 36)", null, 10, canvas.height - 220, canvas.width - 300, 10, false);
+let plataforma01 = new Objeto("rgb(106, 90, 36)", null, 310, canvas.height - 250, 880, 10, false);
 let plataforma02 = new Objeto("rgb(106, 90, 36)", null, 1000, 150, canvas.width - 1010, 10, false);
-let plataforma03 = new Objeto("rgb(106, 90, 36)", null, 1100, 480, canvas.width - 1110, 10, false);
-let plataforma04 = new Objeto("rgb(106, 90, 36)", null, 100, 320, 200, 10, false);
-let plataforma05 = new Objeto("rgb(106, 90, 36)", null, 400, 220, 100, 10, false);
+let plataforma03 = new Objeto("rgb(106, 90, 36)", null, 10, 260, 150, 10, false);
+let plataforma04 = new Objeto("rgb(106, 90, 36)", null, 100, 480, 100, 10, false);
+let plataforma05 = new Objeto("rgb(106, 90, 36)", null, 200, 415, 100, 10, false);
 let plataforma06 = new Objeto("rgb(106, 90, 36)", null, 700, 220, 100, 10, false);
 
 //espinhos
-let espinhos01 = new Objeto("red", null, 525, 370, 144, 12, true)
+let espinhos01 = new Objeto("red", null, 1044, 570, 144, 12, true)
+let espinhos02 = new Objeto("red", null, 897, 570, 144, 12, true)
 
 //ITEM:
 //curas
@@ -277,7 +278,7 @@ let cura01 = new Item("green", 400, 400, 48, 48, null, false)
 let cura02 = new Item("green", 50, 400, 48, 48, null, false)
 
 let documento01 = new Item("gray", 580, 100, 48, 48, null, false)
-let documento02 = new Item("gray", canvas.width - 80, canvas.height - 100, 48, 48, null, false)
+let documento02 = new Item("gray", 1000, 400, 48, 48, null, false)
 //TEXTO:
 let msgPegarPonto = new Texto("20px", "Arial", "white", canvas.width / 2, canvas.height / 2, "center", "Colete todos os documentos para poder avançar de fase.")
 
@@ -372,12 +373,13 @@ function loopAnimacao(){
     plataforma05.desenha()
     plataforma05.colisao()
 
-    plataforma06.desenha()
-    plataforma06.colisao()
 
     //Espinhos
     espinhos01.colisao()
     espinhos01.carregarVisual("img/espinhos.png")
+
+    espinhos02.colisao()
+    espinhos02.carregarVisual("img/espinhos.png")
 
     // --- ITENS --
     documento01.carregarVisual("img/documento.png")

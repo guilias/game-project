@@ -151,9 +151,19 @@ class Objeto {
             player.x + player.largura > this.x &&
             player.y < this.y + this.altura &&
             player.y + player.altura > this.y)
-            {
-            window.location.href = "game_page.html" //avançar para próxima fase
+        {
+            if (player.pontuacao == maxPontos){
+                window.location.href = "fase_01.html" //avançar para próxima fase
             }
+            else{
+                msgPegarPonto.desenha()
+            }
+        }
+    }
+    carregarVisual(linkVisual){
+        this.visual = new Image(this.largura, this.altura)
+        this.visual.src = linkVisual;
+        ctx.drawImage(this.visual, this.x, this.y, this.largura, this.altura);
     }
 }
 
@@ -256,12 +266,19 @@ let cura02 = new Item("green", 50, 400, 48, 48, null, false)
 let documento01 = new Item("gray", 500, 500, 48, 48, null, false)
 
 //TEXTO:
-
+let msgPegarPonto = new Texto("20px", "Arial", "white", canvas.width / 2, canvas.height / 2, "center", "Colete todos os documentos para poder avançar de fase.")
 
 //INTERFACE
 let fundo = new Image(1200, 600)
 fundo.src = "img/backgroundv2.png"
 
+let vermelho = new Objeto("black", null, 0, 0, canvas.width, canvas.height, false)
+let msgGameOver = new Texto("50px", "Arial", "white", canvas.width/2, canvas.height/2, "center", "Você morreu.")
+let msgReiniciarJogo = new Texto("25px", "Arial", "white", canvas.width/2, canvas.height - canvas.height/3, "center", "Pressione a tecla R para tentar novamente.")
+
+
+
+let maxPontos = 0;
 //Mapeamento de teclas: adiciona o "sinal" e cria variável para rastrear teclas pressionadas
 let teclasPressionadas = {};
 document.addEventListener('keydown', function(evento){
@@ -305,25 +322,26 @@ function loopAnimacao(){
     player.carregarVisual("img/detetivehp.png")
 
     //Classe "Objeto":
-    teto.desenha()
-    teto.colisao()
+        teto.desenha()
+        teto.colisao()
 
-    chao.desenha()
-    chao.colisao()
+        chao.desenha()
+        chao.colisao()
 
-    paredeEsquerda.desenha()
-    paredeEsquerda.colisao()
+        paredeEsquerda.desenha()
+        paredeEsquerda.colisao()
 
-    paredeDireita.desenha()
-    paredeDireita.colisao()
+        paredeDireita.desenha()
+        paredeDireita.colisao()
 
-    chaoMadeira.desenha()
-    chaoMadeira.colisao()
+        chaoMadeira.desenha()
+        chaoMadeira.colisao()
 
-    paredeInvisivel.colisao()
+        paredeInvisivel.colisao()
 
-    avancarFase.desenha()
-    avancarFase.passarFase()
+        avancarFase.desenha()
+        avancarFase.passarFase()
+
 
     // --- INTERFACE ---
 
@@ -349,7 +367,7 @@ function loopAnimacao(){
         }
 
     //Pontuação
-    let msgPontuacao = new Texto("20px", "Arial", "white", 30, 100, "left", "Documentos coletados:  " + player.pontuacao)
+    let msgPontuacao = new Texto("20px", "Arial", "white", 30, 100, "left", "Documentos coletados:  " + player.pontuacao + " / " + maxPontos)
     msgPontuacao.desenha()
 
     //Game Over (precisa estar por último)
