@@ -198,3 +198,8 @@
     justify-content: center;
 
 }
+p, LI, H2{
+    text-align: center;
+    font-size: 25px;
+    color: rgb(238, 72, 72);
+}

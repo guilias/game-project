@@ -164,3 +164,8 @@
       font-size: 45px;
       font-family: 'computer';
 }
+p{
+    text-align: center;
+    font-size: 25px;
+    color: rgb(255, 202, 202);
+}
