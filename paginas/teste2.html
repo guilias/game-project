@@ -1,0 +1,17 @@
+<audio id="musica" src="audio/Kansas - Carry on Wayward Son (Official Video).mp3" loop></audio>
+<script>
+  const musica = document.getElementById('musica');
+  // tenta tocar mudo imediatamente
+  musica.muted = true;
+  musica.play().catch(()=> { /* autoplay bloqueado, handle below */ });
+
+  // na primeira interação do usuário, desmuta e garante que o som toque
+  function onFirstInteract() {
+    musica.muted = false;
+    musica.play().catch(()=>{/* ainda pode falhar */});
+    window.removeEventListener('click', onFirstInteract);
+    window.removeEventListener('keydown', onFirstInteract);
+  }
+  window.addEventListener('click', onFirstInteract);
+  window.addEventListener('keydown', onFirstInteract);
+</script>

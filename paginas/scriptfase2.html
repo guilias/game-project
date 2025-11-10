@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Interlúdio</title>
+  <style>
+
+
+    html,body{ height:100%; margin:0; }
+    body{
+      display:flex;
+      justify-content:center;
+      background: linear-gradient(180deg, var(--bg), #071028);
+      font-family: var(--font);
+      color:var(--text);
+      background-color: black;
+
+    }
+
+    .card{
+      max-width:900px;
+      width:100%;
+      padding:28px 32px;
+      border-radius:12px;
+    }
+
+  
+
+    /* área do texto com fonte monoespaçada para "máquina de escrever" */
+    .typewriter {
+      font-family: 'computer';
+      font-size:18px;
+      line-height:1.6;
+      white-space:pre-wrap; /* preserva quebras de linha */
+      min-height: 6.4rem;
+      color:white;
+      position: relative;
+      padding-right:1.1em; /* espaço para cursor */
+    }
+
+    /* cursor (barra vertical) */
+    .typewriter .cursor {
+      display:inline-block;
+      width:.08em;
+      height:1em;
+      background:var(--text);
+      margin-left:.12em;
+      vertical-align:middle;
+      opacity:1;
+      animation: blink 1s steps(2,start) infinite;
+      transform-origin: center;
+    }
+
+    @keyframes blink{
+      50% { opacity: 0; }
+    }
+
+    @font-face {
+    font-family: "computer";
+    src: url("./fontes/Minecraftia-Regular.ttf");
+}
+
+    /* pequena nota e botão replay */
+    .controls{
+      margin-top:14px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+
+    button:active{ transform:translateY(1px); }
+
+    .cursor{
+      display: inline-block;
+      width: 3px;
+      height: 1em;
+      background: #7dd3fc;
+      margin-left: 2px;
+      animation: blink 1s steps(2, start) infinite;
+    }
+  </style>
+</head>
+<body>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+  <div class="card" role="main">
+<div class="container">
+    <div id="typewriter" class="typewriter">
+-MAS QUE PORRA É ESSA AQUELE FILHO DA MÃE REALMENTE NÃO ESTA LOUCO.
+
+UNIDADE 731         02 de maio de 1930
+PARA:MAJOR THOMAS
+
+"Conforme solicitado na ultima reunião, o país necessita de uma aprimoração da sua bomba de gás, em confronto a versão atual somente sufoca e cega o inimigo, precisamos
+que ela sufoque suficiente para entrada de óbito. Caso necessite de mais soldados, nos retorne."
+
+VARELÓPOLIS 731     05 de maio de 1930
+PARA:CONFIDENCIAL
+
+"Os soldados que foram utilizados não tiveram uma reação tão diferente da primeira bomba de gás,ainda estou com dificuldade para atingir 
+o sistema respiratório, Ulices me trouxe alguns livros referentes, em breve envio atualizações."
+
+-Seria essa a bomba de gás que usaram nos civis? 
+
+    </div>
+    <span class="cursor" id="cursor"></span>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <h1>CONTINUE ></h1>
+
+
+  <script>
+    const textEl = document.getElementById("typewriter");
+    const cursorEl = document.getElementById("cursor");
+    const text = textEl.innerText; // pega o texto exatamente como está
+    textEl.textContent = ""; // limpa antes de começar
+
+    let i = 0;
+    const speed = 40; // milissegundos por caractere
+
+    function type() {
+      if (i < text.length) {
+        textEl.textContent += text.charAt(i);
+        i++;
+        setTimeout(type, speed);
+      } else {
+        cursorEl.style.display = "none"; // esconde o cursor quando termina
+      }
+    }
+    
+    window.onload = type;
+  </script>
+</body>
+</html>

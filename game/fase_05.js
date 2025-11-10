@@ -151,7 +151,7 @@ class Objeto {
             player.y + player.altura > this.y)
         {
             if (player.pontuacao == maxPontos){
-                window.location.href = "fase_01.html" //avançar para próxima fase
+                window.location.href = "./interludio/scriptfase5.html" //avançar para próxima fase
             }
             else{
                 msgPegarPonto.desenha()

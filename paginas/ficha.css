@@ -1,0 +1,129 @@
+*{
+    margin: 0;
+}
+
+/* nav bar */
+
+
+.fundo{
+    background-color:  black;
+}
+
+.topo{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-family: "computer";
+    border-bottom: solid rgb(43, 255, 0) 3px;
+    background-color: black;
+}
+
+.b1{
+    display: inline-block;padding: 15px 30px;
+    font-size: 18px;font-weight: bold;
+    color: rgb(43, 255, 0); text-transform: uppercase;
+    text-decoration: none;
+    background-color: transparent;
+    border: 2px solid rgb(17, 172, 27);
+    border-radius: 5px;
+    box-shadow: 0 0 3px rgb(90, 255, 1), 0 0 6px rgb(0, 237, 4), 0 0 15px rgb(59, 182, 1);
+    
+}
+
+.b2{
+    display: inline-block;padding: 15px 30px;
+    font-size: 18px;font-weight: bold;
+    color: rgb(43, 255, 0); text-transform: uppercase;
+    text-decoration: none;
+    background-color: transparent;
+    border: 2px solid rgb(17, 172, 27);
+    border-radius: 5px;
+    box-shadow: 0 0 3px rgb(90, 255, 1), 0 0 6px rgb(0, 237, 4), 0 0 15px rgb(59, 182, 1);
+}
+
+.b3{
+    display: inline-block;padding: 15px 30px;
+    font-size: 18px;font-weight: bold;
+    color: rgb(43, 255, 0); text-transform: uppercase;
+    text-decoration: none;
+    background-color: transparent;
+    border: 2px solid rgb(17, 172, 27);
+    border-radius: 5px;
+    box-shadow: 0 0 3px rgb(90, 255, 1), 0 0 6px rgb(0, 237, 4), 0 0 15px rgb(59, 182, 1);
+    
+}
+
+.b4{
+    display: inline-block;padding: 15px 30px;
+    font-size: 18px;font-weight: bold;
+    color: rgb(43, 255, 0); text-transform: uppercase;
+    text-decoration: none;
+    background-color: transparent;
+    border: 2px solid rgb(17, 172, 27);
+    border-radius: 5px;
+    box-shadow: 0 0 3px rgb(90, 255, 1), 0 0 6px rgb(0, 237, 4), 0 0 15px rgb(59, 182, 1);
+    
+}
+
+:hover.b1{
+    transition: all 0.4s ease;
+    transform: scale(1.05); 
+    color: rgb(43, 255, 0); text-transform: uppercase; 
+    border:  2px solid rgb(17, 172, 27);
+    box-shadow: 0 0 10px rgb(90, 255, 1), 0 0 20px rgb(0, 237, 4), 0 0 30px rgb(59, 182, 1);
+}
+
+
+:hover.b2{
+    transition: all 0.4s ease;
+    transform: scale(1.05); 
+    color: rgb(43, 255, 0); text-transform: uppercase; 
+    border:  2px solid rgb(17, 172, 27);
+    box-shadow: 0 0 10px rgb(90, 255, 1), 0 0 20px rgb(0, 237, 4), 0 0 30px rgb(59, 182, 1);
+}
+
+:hover.b3{
+    transition: all 0.4s ease;
+    transform: scale(1.05); 
+    color: rgb(43, 255, 0); text-transform: uppercase; 
+    border:  2px solid rgb(17, 172, 27);
+    box-shadow: 0 0 10px rgb(90, 255, 1), 0 0 20px rgb(0, 237, 4), 0 0 30px rgb(59, 182, 1); 
+}
+
+
+:hover.b4{
+    transition: all 0.4s ease;
+    transform: scale(1.05); 
+    color: rgb(43, 255, 0); text-transform: uppercase; 
+    border:  2px solid rgb(17, 172, 27);
+    box-shadow: 0 0 10px rgb(90, 255, 1), 0 0 20px rgb(0, 237, 4), 0 0 30px rgb(59, 182, 1);
+}
+
+@font-face {
+    font-family: "computer";
+    src: url("./fontes/Minecraftia-Regular.ttf");
+}
+
+.titulos{
+    color: rgb(43, 255, 0);
+    font-family: 'computer';
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.coluna1{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.textos{
+    color:white;
+    font-family: 'computer';
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}

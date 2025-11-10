@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Interlúdio</title>
+  <style>
+
+
+    html,body{ height:100%; margin:0; }
+    body{
+      display:flex;
+      justify-content:center;
+      background: linear-gradient(180deg, var(--bg), #071028);
+      font-family: var(--font);
+      color:var(--text);
+      background-color: black;
+
+    }
+
+    .card{
+      max-width:900px;
+      width:100%;
+      padding:28px 32px;
+      border-radius:12px;
+    }
+
+  
+
+    /* área do texto com fonte monoespaçada para "máquina de escrever" */
+    .typewriter {
+      font-family: 'computer';
+      font-size:18px;
+      line-height:1.6;
+      white-space:pre-wrap; /* preserva quebras de linha */
+      min-height: 6.4rem;
+      color:white;
+      position: relative;
+      padding-right:1.1em; /* espaço para cursor */
+    }
+
+    /* cursor (barra vertical) */
+    .typewriter .cursor {
+      display:inline-block;
+      width:.08em;
+      height:1em;
+      background:var(--text);
+      margin-left:.12em;
+      vertical-align:middle;
+      opacity:1;
+      animation: blink 1s steps(2,start) infinite;
+      transform-origin: center;
+    }
+
+    @keyframes blink{
+      50% { opacity: 0; }
+    }
+
+    @font-face {
+    font-family: "computer";
+    src: url("./fontes/Minecraftia-Regular.ttf");
+}
+
+    /* pequena nota e botão replay */
+    .controls{
+      margin-top:14px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+
+    button:active{ transform:translateY(1px); }
+
+    .cursor{
+      display: inline-block;
+      width: 3px;
+      height: 1em;
+      background: #7dd3fc;
+      margin-left: 2px;
+      animation: blink 1s steps(2, start) infinite;
+    }
+  </style>
+</head>
+<body>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+  <div class="card" role="main">
+<div class="container">
+    <div id="typewriter" class="typewriter">
+-Diana,oque te deixou assim com tanta raiva? Eles tiraram a presença do seu marido? Por que você não foi em paz?
+
+LOCAL DESCONHECIDO       SEM CONHECIMENTO DE DATA 
+DIANA ROMANO
+
+"Talvez sejam os ultimos dias que consigo escrever no livro que me escutou nos momentos em que mais precisei,quem de fato é o meu marido?a guerra 
+o deixou assim ou ele sempre foi ruim dessa forma?talvez a ausencia em casa não tenha me permitido de conhecer esse lado.
+
+Um bunker, na minha propria casa sem consentimento, até o momento tem eu, uma maca,uma mesinha com seringas e 5 corpos empilhados, o cheiro me impede de respirar
+direito, e meu remédio, nem isso ele me permitiu ter trancada aqui embaixo."
+
+VARELÓPOLIS       07 DE AGOSTO DE 1937
+PARA:CONFIDENCIAL
+
+"Retornando para informar que o primeiro teste da aprimoração da bomba de gás foi um sucesso,o soldado sufocou em cerca de 4 seg,o óbito em cerca de 4 min.
+Agradeço pela confiança."
+
+    </div>
+    <span class="cursor" id="cursor"></span>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <h1>CONTINUE ></h1>
+
+
+  <script>
+    const textEl = document.getElementById("typewriter");
+    const cursorEl = document.getElementById("cursor");
+    const text = textEl.innerText; // pega o texto exatamente como está
+    textEl.textContent = ""; // limpa antes de começar
+
+    let i = 0;
+    const speed = 40; // milissegundos por caractere
+
+    function type() {
+      if (i < text.length) {
+        textEl.textContent += text.charAt(i);
+        i++;
+        setTimeout(type, speed);
+      } else {
+        cursorEl.style.display = "none"; // esconde o cursor quando termina
+      }
+    }
+    
+    window.onload = type;
+  </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial</title>
+    <link rel="stylesheet" href="intro.css">
+</head>
+<body>
+    <div class="topo">
+        <a class="b1" href="sobre.html"><span>sobre</span></a>
+        <a class="b2" href="jogabilidade.html"><span>Jogabilidade</span></a>
+        <a class="b1" href="ficha.html"><span>Ficha Tecnica e créditos</span></a>
+        <a class="b1" href="desenvolvedores.html"><span>Desenvolvedores</span></a>
+        <img src="imagens/logo.png" height="90px">
+    </div>
+    
+    </div>
+    <div class="fundo">
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="logo">
+        <img src="imagens/logo.png" height="650px">
+    </div>
+    <br>
+    <br>
+    <p>ei!toque em qualquer lugar da tela.</p>
+    <br>
+    <br>
+    <div class="play">
+        <a href="../game/interludio/inicio.html"><img src="imagens/play.png" height="140px"></a>
+    </div>
+    </div>
+<audio id="musica" src="audio/Kansas - Carry on Wayward Son (Official Video).mp3" loop></audio>
+<script>
+  const musica = document.getElementById('musica');
+  // tenta tocar mudo imediatamente
+  musica.muted = true;
+  musica.play().catch(()=> { /* autoplay bloqueado, handle below */ });
+
+  // na primeira interação do usuário, desmuta e garante que o som toque
+  function onFirstInteract() {
+    musica.muted = false;
+    musica.play().catch(()=>{/* ainda pode falhar */});
+    window.removeEventListener('click', onFirstInteract);
+    window.removeEventListener('keydown', onFirstInteract);
+  }
+  window.addEventListener('click', onFirstInteract);
+  window.addEventListener('keydown', onFirstInteract);
+</script>
+</body>
+</html>
