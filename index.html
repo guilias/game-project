@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Inicial</title>
-    <link rel="stylesheet" href="intro.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="topo">
-        <a class="b1" href="sobre.html"><span>sobre</span></a>
-        <a class="b2" href="jogabilidade.html"><span>Jogabilidade</span></a>
-        <a class="b1" href="ficha.html"><span>Ficha Tecnica e créditos</span></a>
-        <a class="b1" href="desenvolvedores.html"><span>Desenvolvedores</span></a>
-        <img src="imagens/logo.png" height="90px">
+        <a class="b1" href="./paginas/sobre.html"><span>sobre</span></a>
+        <a class="b2" href="./paginas/jogabilidade.html"><span>Jogabilidade</span></a>
+        <a class="b1" href="./paginas/ficha.html"><span>Ficha Tecnica e créditos</span></a>
+        <a class="b1" href="./paginas/desenvolvedores.html"><span>Desenvolvedores</span></a>
+        <img src="./paginas/imagens/logo.png" height="90px">
     </div>
     
     </div>
@@ -22,7 +22,7 @@
     <br>
     <br>
     <div class="logo">
-        <img src="imagens/logo.png" height="650px">
+        <img src="./paginas/imagens/logo.png" height="650px">
     </div>
     <br>
     <br>
@@ -30,11 +30,12 @@
     <br>
     <br>
     <div class="play">
-        <a href="../game/interludio/inicio.html"><img src="imagens/play.png" height="140px"></a>
+        <a href="./game/interludio/inicio.html"><img src="./paginas/imagens/play.png" height="140px"></a>
     </div>
     </div>
 <audio id="musica" src="audio/Kansas - Carry on Wayward Son (Official Video).mp3" loop></audio>
-<script>
+
+<!-- <script>
   const musica = document.getElementById('musica');
   // tenta tocar mudo imediatamente
   musica.muted = true;
@@ -49,6 +50,6 @@
   }
   window.addEventListener('click', onFirstInteract);
   window.addEventListener('keydown', onFirstInteract);
-</script>
+</script> -->
 </body>
 </html>
