@@ -1,14 +1,12 @@
 //Estou atualizando o código de script.js para esse documento,
 //utilizando classes e aprimorando algumas funções.
 //AINDA NÃO ESTÁ PRONTO
-
-let canvas = document.getElementById('teste-canvas');
+let canvas = document.getElementById('canvas_01');
 let ctx = canvas.getContext('2d');
 
-
 let player = {
-    x: 700,
-    y: 0,
+    x: 50,
+    y: 400,
     largura: 48,
     altura: 96,
     pv: 100,
@@ -146,6 +144,25 @@ class Objeto {
             return false;
         }
     }
+    passarFase(){
+        if (player.x < this.x + this.largura &&
+            player.x + player.largura > this.x &&
+            player.y < this.y + this.altura &&
+            player.y + player.altura > this.y)
+        {
+            if (player.pontuacao == maxPontos){
+                window.location.href = "fase_01.html" //avançar para próxima fase
+            }
+            else{
+                msgPegarPonto.desenha()
+            }
+        }
+    }
+    carregarVisual(linkVisual){
+        this.visual = new Image(this.largura, this.altura)
+        this.visual.src = linkVisual;
+        ctx.drawImage(this.visual, this.x, this.y, this.largura, this.altura)
+    }
 }
 
 class Item {
@@ -166,13 +183,13 @@ class Item {
             ctx.closePath();}
     }
     carregarVisual(linkVisual){
-    this.visual = new Image(this.largura, this.altura)
-    this.visual.src = linkVisual;
-    if(this.coletado == false){
-        ctx.drawImage(this.visual, this.x, this.y, this.largura, this.altura)}
+        this.visual = new Image(this.largura, this.altura)
+        this.visual.src = linkVisual;
+        if (this.coletado == false){
+            ctx.drawImage(this.visual, this.x, this.y, this.largura, this.altura)}
     }
     curar(){
-    if (this.coletado == false &&
+        if (this.coletado == false &&
         player.x < this.x + this.largura &&
         player.x + player.largura > this.x &&
         player.y < this.y + this.altura &&
@@ -200,15 +217,6 @@ class Item {
             this.coletado = true
             }
     }
-    passarFase(){
-    if (player.x < this.x + this.largura &&
-        player.x + player.largura > this.x &&
-        player.y < this.y + this.altura &&
-        player.y + player.altura > this.y)
-        {
-        window.location.href = "game_page.html" //avançar para próxima fase
-        }
-    }
 }
 
 class Texto {
@@ -233,38 +241,61 @@ class Texto {
 // --- DECLARAÇÃO DE OBJETOS DE CLASSES: ---
 
 //INIMIGO:
-let fantasma = new Inimigo("black", 0, 0, 48, 96, 1.5)
+let fantasma = new Inimigo("black", -200, 600, 48, 96, 5)
 
 
 // OBJETO:
-let playerPlaceholder = new Objeto("rgba(255, 0, 0, 1)", null, 700, 0, 48, 96, false)
+let chao = new Objeto("green", null, 0, canvas.height - 10, canvas.width, 10, false)
+let paredeInvisivel = new Objeto("rgb(0, 0, 0, 0)", null, 1190, 0, 10, canvas.height, false)
+let paredeCasa = new Objeto("gray", null, 0, canvas.height - 450, 10, 440, false)
+let beirau = new Objeto("gray", null, 10, canvas.height - 140, 10, 10, false)
+let porta = new Objeto("brown", null, 1, canvas.height - 130, 11, 120, false)
+let avancarFase = new Objeto("rgb(0, 0, 0, 0)", null, 1100, 0, 100, 600, false)
 
-let teto = new Objeto("gray", null, 0, 0, canvas.width, 10, false);
-let chao = new Objeto("gray", null, 0, canvas.height - 10, canvas.width, 10, false);
-let paredeEsquerda = new Objeto("gray", null, 0, 0, 10, canvas.height, false)
-let paredeDireita = new Objeto("gray", null, canvas.width - 10, 0, 10, canvas.height, false)
-let plataforma = new Objeto("gray", null, canvas.width / 2, 500, 400, 10, false);
 
-let dano01 = new Objeto("purple", null, 1000, canvas.height - 20, 100, 10, true);
+//plataformas
+let plataforma01 = new Objeto("rgb(106, 90, 36)", null, 150, 450, 880, 10, false);
+let plataforma02 = new Objeto("rgb(106, 90, 36)", null, 300, 300, 890, 10, false);
+let plataforma03 = new Objeto("rgb(106, 90, 36)", null, 150, 150, 10, 300, false);
+let plataforma04 = new Objeto("rgb(106, 90, 36)", null, 150, 150, 880, 10, false);
+
+let plataforma05 = new Objeto("rgb(106, 90, 36)", null, 1140, 520, 50, 10, false);
+let plataforma06 = new Objeto("rgb(106, 90, 36)", null, 160, 390, 50, 10, false);
+let plataforma07 = new Objeto("rgb(106, 90, 36)", null, 1140, 240, 50, 10, false);
+
+
+//espinhos
+let espinhos01 = new Objeto("red", null, 1044, 570, 144, 12, true)
+let espinhos02 = new Objeto("red", null, 897, 570, 144, 12, true)
+let espinhos03 = new Objeto("red", null, 749, 570, 144, 12, true)
+let espinhos04 = new Objeto("red", null, 500, 570, 144, 12, true)
+let espinhos05 = new Objeto("red", null, 250, 570, 144, 12, true)
 
 //ITEM:
 //curas
-let cura01 = new Item("green", 400, 400, 48, 48, null, false)
-let cura02 = new Item("green", 50, 400, 48, 48, null, false)
+let cura01 = new Item("green", 600, 390, 48, 48, null, false)
+let cura02 = new Item("green", 600, 90, 48, 48, null, false)
 
-let documento01 = new Item("gray", 500, 500, 48, 48, null, false)
-
+let documento01 = new Item("gray", 100, 180, 48, 48, null, false)
+let documento02 = new Item("gray", 10, 280, 48, 48, null, false)
+let documento03 = new Item("gray", 100, 380, 48, 48, null, false)
 //TEXTO:
-let msgJogadorNoChao = new Texto("50px", "Minecraftia", "black", canvas.width / 2, canvas.height / 2, "center", "O jogador está no chão.")
+let msgPegarPonto = new Texto("20px", "Minecraftia", "white", canvas.width / 2, canvas.height / 2, "center", "Colete todos os documentos para poder avançar de fase.")
+
+let msgFim = new Texto("40px", "Minecraftia", "white", canvas.width / 2, canvas.height / 2, "center", "Você concluiu sua investigação. Parabéns.")
 
 
 //INTERFACE
+let fundo = new Image(1200, 600)
+fundo.src = "img/final.png"
+
+let maxPontos = 0;
+
 let vermelho = new Objeto("black", null, 0, 0, canvas.width, canvas.height, false)
 let msgGameOver = new Texto("50px", "Minecraftia", "white", canvas.width/2, canvas.height/2, "center", "Você morreu.")
 let msgReiniciarJogo = new Texto("25px", "Minecraftia", "white", canvas.width/2, canvas.height - canvas.height/3, "center", "Pressione a tecla R para tentar novamente.")
 
-let fundo = new Image(1200, 600)
-fundo.src = "img/backgroundv2.png"
+
 
 //Mapeamento de teclas: adiciona o "sinal" e cria variável para rastrear teclas pressionadas
 let teclasPressionadas = {};
@@ -278,7 +309,7 @@ document.addEventListener('keyup', function(evento){
 
 function loopAnimacao(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(fundo, 0, 0)
+    ctx.drawImage(fundo, 0, 0);
 
     //--- MOVIMENTAÇÃO: ---
     //antes de mais nada, chegar se o jogo está vivo:
@@ -296,8 +327,6 @@ function loopAnimacao(){
             player.velVertical = player.forcaPulo; //basicamente, é o impulso do pulo.
             player.noChao = false;
         }
-        playerPlaceholder.x = player.x
-        playerPlaceholder.y = player.y
     }
 
     //"física"
@@ -311,46 +340,42 @@ function loopAnimacao(){
     player.carregarVisual("img/detetivehp.png")
 
     //Classe "Objeto":
-    teto.desenha()
-    teto.colisao()
-
     chao.desenha()
     chao.colisao()
 
-    paredeEsquerda.desenha()
-    paredeEsquerda.colisao()
+    paredeInvisivel.colisao()
 
-    paredeDireita.desenha()
-    paredeDireita.colisao()
+    paredeCasa.desenha()
+    paredeCasa.colisao()
 
-    //Objetos que dão dano:
-    dano01.desenha()
-    dano01.colisao()
+    porta.desenha()
 
-    //Classe "Item":
-    cura01.curar()
-    cura01.carregarVisual("img/pocao.png")
+    beirau.desenha()
 
-    cura02.curar()
-    cura02.carregarVisual("img/pocao.png")
-
-    //Documentos:
-    documento01.pontuar()
-    documento01.carregarVisual("img/documento.png")
+    avancarFase.desenha()
+    avancarFase.passarFase()
 
 
-    //FANTASMA
-    //nao funciona
-    fantasma.carregarVisual("img/fantasma.png")
-    fantasma.seguirJogador()
-    fantasma.dano();
+    msgFim.desenha()
+    //Espinhos
 
+
+    // --- ITENS --
+
+
+
+
+
+    // --- FANTASMA ---
+
+    // --- INTERFACE ---
+
+    //Tela Game Over
     if (player.pv == 0){
         vermelho.desenha()
         msgGameOver.desenha()
     }
 
-    // --- INTERFACE ---
 
     //Pontos de VIda:
     let msgPv = new Texto("20px", "Minecraftia", "white", 30, 50, "left", "Pontos de vida: " + player.pv)
@@ -367,9 +392,8 @@ function loopAnimacao(){
         }
 
     //Pontuação
-    let msgPontuacao = new Texto("20px", "Minecraftia", "white", 30, 100, "left", "Documentos coletados:  " + player.pontuacao)
+    let msgPontuacao = new Texto("20px", "Minecraftia", "white", 30, 100, "left", "Documentos coletados:  " + player.pontuacao + " / " + maxPontos)
     msgPontuacao.desenha()
-
 
     //Game Over (precisa estar por último)
     if (player.pv == 0){
