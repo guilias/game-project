@@ -265,6 +265,10 @@ let documento01 = new Item("gray", 500, 500, 48, 48, null, false)
 let msgJogadorNoChao = new Texto("50px", "Minecraftia", "black", canvas.width / 2, canvas.height / 2, "center", "O jogador está no chão.")
 let msgPegarPonto = new Texto("20px", "Minecraftia", "white", canvas.width / 2, canvas.height / 2, "center", "Colete todos os documentos para poder avançar de fase.")
 
+let msgTutorial = new Texto("20px", "Minecraftia", "white", canvas.width / 2, canvas.height / 2, "center", "Use as teclas W, A, S e D para se mover. Ou as setas no teclado.")
+let msgTutorial2 = new Texto("20px", "Minecraftia", "white", canvas.width / 2, 350, "center", "Seu objetivo é coletar todos os documentos em cada cenário!")
+
+
 //INTERFACE
 let fundo = new Image(1200, 600)
 fundo.src = "img/ceu.png"
@@ -331,6 +335,9 @@ function loopAnimacao(){
     porta.passarFase()
 
     beirau.desenha()
+
+    msgTutorial.desenha()
+    msgTutorial2.desenha()
 
     avancarFase.desenha()
     avancarFase.passarFase()

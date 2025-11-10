@@ -151,7 +151,7 @@ class Objeto {
             player.y + player.altura > this.y)
         {
             if (player.pontuacao == maxPontos){
-                window.location.href = "fase_04.html" //avançar para próxima fase
+                window.location.href = "fase_01.html" //avançar para próxima fase
             }
             else{
                 msgPegarPonto.desenha()
@@ -241,7 +241,7 @@ class Texto {
 // --- DECLARAÇÃO DE OBJETOS DE CLASSES: ---
 
 //INIMIGO:
-let fantasma = new Inimigo("black", -100, -100, 48, 96, 3)
+let fantasma = new Inimigo("black", -200, 600, 48, 96, 5)
 
 
 // OBJETO:
@@ -259,13 +259,15 @@ let avancarFase = new Objeto("rgb(0, 0, 0, 0)", null, canvas.width - 20, 0, 20, 
 
 
 //plataformas
-let plataforma01 = new Objeto("rgb(106, 90, 36)", null, 900, 400, 200, 10, false);
-let plataforma02 = new Objeto("rgb(106, 90, 36)", null, 600, 310, 100, 10, false);
-let plataforma03 = new Objeto("rgb(106, 90, 36)", null, 800, 490, 40, 10, false);
-let plataforma04 = new Objeto("rgb(106, 90, 36)", null, 300, 350, 100, 10, false);
-let plataforma05 = new Objeto("rgb(106, 90, 36)", null, 10, 290, 100, 10, false);
-let plataforma06 = new Objeto("rgb(106, 90, 36)", null, 180, 180, 300, 10, false);
-let plataforma07 = new Objeto("rgb(106, 90, 36)", null, 800, 140, 260, 10, false);
+let plataforma01 = new Objeto("rgb(106, 90, 36)", null, 150, 450, 880, 10, false);
+let plataforma02 = new Objeto("rgb(106, 90, 36)", null, 300, 300, 890, 10, false);
+let plataforma03 = new Objeto("rgb(106, 90, 36)", null, 150, 150, 10, 300, false);
+let plataforma04 = new Objeto("rgb(106, 90, 36)", null, 150, 150, 880, 10, false);
+
+let plataforma05 = new Objeto("rgb(106, 90, 36)", null, 1140, 520, 50, 10, false);
+let plataforma06 = new Objeto("rgb(106, 90, 36)", null, 160, 390, 50, 10, false);
+let plataforma07 = new Objeto("rgb(106, 90, 36)", null, 1140, 240, 50, 10, false);
+
 
 //espinhos
 let espinhos01 = new Objeto("red", null, 1044, 570, 144, 12, true)
@@ -276,11 +278,12 @@ let espinhos05 = new Objeto("red", null, 250, 570, 144, 12, true)
 
 //ITEM:
 //curas
-let cura01 = new Item("green", 325, 300, 48, 48, null, false)
-let cura02 = new Item("green", 50, 400, 48, 48, null, false)
+let cura01 = new Item("green", 600, 390, 48, 48, null, false)
+let cura02 = new Item("green", 600, 90, 48, 48, null, false)
 
-let documento01 = new Item("gray", 30, 30, 48, 48, null, false)
-let documento02 = new Item("gray", 970, 300, 48, 48, null, false)
+let documento01 = new Item("gray", 100, 180, 48, 48, null, false)
+let documento02 = new Item("gray", 10, 280, 48, 48, null, false)
+let documento03 = new Item("gray", 100, 380, 48, 48, null, false)
 //TEXTO:
 let msgPegarPonto = new Texto("20px", "Minecraftia", "white", canvas.width / 2, canvas.height / 2, "center", "Colete todos os documentos para poder avançar de fase.")
 
@@ -288,7 +291,7 @@ let msgPegarPonto = new Texto("20px", "Minecraftia", "white", canvas.width / 2, 
 let fundo = new Image(1200, 600)
 fundo.src = "img/backgroundv2.png"
 
-let maxPontos = 2;
+let maxPontos = 3;
 
 let vermelho = new Objeto("black", null, 0, 0, canvas.width, canvas.height, false)
 let msgGameOver = new Texto("50px", "Minecraftia", "white", canvas.width/2, canvas.height/2, "center", "Você morreu.")
@@ -382,20 +385,7 @@ function loopAnimacao(){
     plataforma07.colisao()
 
     //Espinhos
-    espinhos01.colisao()
-    espinhos01.carregarVisual("img/espinhos.png")
 
-    espinhos02.colisao()
-    espinhos02.carregarVisual("img/espinhos.png")
-
-    espinhos03.colisao()
-    espinhos03.carregarVisual("img/espinhos.png")
-
-    espinhos04.colisao()
-    espinhos04.carregarVisual("img/espinhos.png")
-
-    espinhos05.colisao()
-    espinhos05.carregarVisual("img/espinhos.png")
 
     // --- ITENS --
     documento01.carregarVisual("img/documento.png")
@@ -403,6 +393,11 @@ function loopAnimacao(){
 
     documento02.carregarVisual("img/documento.png")
     documento02.pontuar()
+
+    documento03.carregarVisual("img/documento.png")
+    documento03.pontuar()
+
+
 
 
     cura01.curar()
